@@ -36,6 +36,32 @@ Our goal is to build a well-structured, scalable, and developer-friendly solutio
 We want our codebase to feel like it was written by a single person — clean, consistent, and easy to maintain.  
 Below are the rules and principles every developer should follow.
 
+### 🧩 Collaboration & Git Workflow Rules
+
+* **No one commits directly to the `main` branch.**
+  All changes must go through a **Pull Request (PR)** that is **reviewed and approved by at least two other colleagues** before merging.
+
+* **Initial setup exception:**
+  Only the project lead may make direct commits early on (for setup and README adjustments).
+
+* **Branch per task:**
+  Every task or issue must be handled in its **own dedicated branch**.
+  Each branch should solve **only one issue or feature**.
+
+* **Bug reporting:**
+  If you find a bug while working on another feature, **do not fix it in the same branch**.
+  Instead, report it as a **separate issue** and address it in a **new branch** later.
+  → This keeps debugging easier and progress more traceable.
+
+* **Commit messages:**
+
+  * Commit messages should be **clear and descriptive**, explaining what was done.
+  * Small, isolated commits are fine for small changes, but generally aim for **meaningful, informative commit messages**.
+  * Avoid commits that modify **dozens or hundreds of files at once**.
+  * Make **incremental commits** as you achieve small milestones — this helps with code reviews and rollback safety.
+
+---
+
 ---
 
 ### 🔁 General Project Rules
