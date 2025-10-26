@@ -1,10 +1,20 @@
-using ProiectColectiv.Persistence;
-using Microsoft.EntityFrameworkCore;
-using ProiectColectiv.Common.Config;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi.Models;
+using ProiectColectiv.Application.Bootstrap;
+using ProiectColectiv.Common.Config;
+using ProiectColectiv.Persistence;
+using ProiectColectiv.Persistence.Bootstrap;
 using ProiectColectiv.Web.Bootstrap;
+using ProiectColectiv.Web.Filters;
+using System.Text;
 
 string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -40,7 +50,59 @@ JwtConfig jwtConfig = new()
     Secret = jwtSettings["secret"]
 };
 
+//builder.Services.RegisterInfrastructureComponents();
+builder.Services.RegisterApplicationServices();
+builder.Services.RegisterRepositories();
 builder.Services.RegisterWebAPIServices();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    //options.EnableAnnotations();
+    options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`. You need to execute one of the Login methods to get the token.",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+                Reference = new OpenApiReference
+                {
+                    Id = "Bearer",
+                    Type = ReferenceType.SecurityScheme
+                }
+            },
+            new List<string>()
+        }
+    });
+});
+
+
+builder.Services.AddSingleton(jwtConfig);
+builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+builder.Services.AddScoped(x =>
+{
+    ActionContext? actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+    IUrlHelperFactory factory = x.GetRequiredService<IUrlHelperFactory>();
+    return factory.GetUrlHelper(actionContext);
+});
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
+builder.Logging.AddFilter("Microsoft", LogLevel.Warning);
+
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Error);
+
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
 
 builder.Services
     .AddAuthentication(opt =>
@@ -62,12 +124,19 @@ builder.Services
         };
     });
 
+builder.Services.AddControllers(options => options.Filters.Add<CustomExceptionFilterAttribute>());
+
 var app = builder.Build();
 
 app.UseCors(MyAllowSpecificOrigins);
 
+app.UseRouting();
+
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.Run();

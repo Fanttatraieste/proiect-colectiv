@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProiectColectiv.Application\ProiectColectiv.Application.csproj" />
     <ProjectReference Include="..\ProiectColectiv.Common\ProiectColectiv.Common.csproj" />
     <ProjectReference Include="..\ProiectColectiv.Persistence\ProiectColectiv.Persistence.csproj" />
   </ItemGroup>

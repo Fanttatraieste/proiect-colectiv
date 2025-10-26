@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProiectColectiv.Domain.Entities;
 
 namespace ProiectColectiv.Persistence
 {
@@ -9,6 +10,7 @@ namespace ProiectColectiv.Persistence
         {
         }
 
+        public DbSet<Example> Examples { get; set; }
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Course> Courses { get; set; }
         //public DbSet<Enrollment> Enrollments { get; set; }

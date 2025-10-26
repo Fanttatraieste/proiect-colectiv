@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ProiectColectiv.Application.Commands.ExampleCommands;
 using ProiectColectiv.Application.Interfaces;
+using ProiectColectiv.Application.Queries.ExampleQueries;
 using ProiectColectiv.Application.Services;
 
 namespace ProiectColectiv.Application.Bootstrap
@@ -9,6 +11,8 @@ namespace ProiectColectiv.Application.Bootstrap
         public static void RegisterApplicationServices(this IServiceCollection services)
         {
             services.AddSingleton<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<ExampleQueryHandler>();
+            services.AddScoped<ExampleCommandHandler>();
         }
     }
 }
