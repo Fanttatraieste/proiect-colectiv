@@ -36,6 +36,8 @@ Our goal is to build a well-structured, scalable, and developer-friendly solutio
 We want our codebase to feel like it was written by a single person — clean, consistent, and easy to maintain.  
 Below are the rules and principles every developer should follow.
 
+---
+
 ### 🧩 Collaboration & Git Workflow Rules
 
 * **No one commits directly to the `main` branch.**
