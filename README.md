@@ -62,7 +62,35 @@ Below are the rules and principles every developer should follow.
 
 ---
 
----
+### 🗄️ Database & Migration Rules
+
+* We are using **multiple databases**:
+
+  * A **main (production-like)** database — only **migrations from the `main` branch** will be applied here.
+  * **Individual developer databases** — each developer must use their own DB when working on new features that involve schema changes.
+
+* **Never apply test or experimental migrations** to the main database.
+
+* When working on a feature that includes database changes:
+
+  * Run migrations only in **your local/test database**.
+  * Make sure your migration files are **clean and ordered** before creating a Pull Request.
+
+* If multiple developers are creating migrations at the same time:
+
+  * Keep track of the **migration order** to avoid conflicts.
+  * Example:
+    If `Migration_1` and `Migration_2` are already in the `main` branch, and two developers create migrations in parallel:
+
+    * Before submitting a PR, check if **new migrations** were merged into `main`.
+    * If there are new migrations after yours, **recreate your migration** so that the migration sequence stays correct and conflict-free.
+
+* Always **verify your migration history** before merging:
+
+  * Run `dotnet ef migrations list` to check the current order.
+  * Apply and test your migrations locally before submitting a PR.
+
+* The goal is to maintain a **stable, synchronized migration chain** across all environments.
 
 ### 🔁 General Project Rules
 - Follow the **DRY (Don’t Repeat Yourself)** principle — avoid code repetition everywhere.
