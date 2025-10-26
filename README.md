@@ -63,3 +63,24 @@ Below are the rules and principles every developer should follow.
   {
       // code
   }
+
+
+### 🌐 Frontend Rules (Angular / TypeScript)
+
+* **No `any` types** — strictly typed TypeScript only.
+* Apply the **DRY** principle; extract reusable HTML or logic into **shared components**.
+* Class structure:
+
+  * **Private variables first**, then **public variables**
+  * **Public methods first**, then **private methods**
+* Always **specify variable and method types** unless the type is clearly inferred.
+
+  ```typescript
+  public name: string;
+  public count = 0; // clear type inference
+  ```
+* Always use `let` or `const`, **never `var`**.
+* Variable and method names always start with a **small letter**.
+
+---
+
