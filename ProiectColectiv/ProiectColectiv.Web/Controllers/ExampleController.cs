@@ -26,7 +26,7 @@ namespace ProiectColectiv.Web.Controllers
         [ProducesResponseType(typeof(CommandResponse), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateExample([FromBody] CreateExampleCommand command)
         {
-            // am modificat altceva aici (main branch)
+            // am modificat altceva aici (main branch) inca o data
             var result = await _commandHandler.Handle(command, CancellationToken.None);
             return result.IsValid ? Ok(result) : FormatError(result);
         }
