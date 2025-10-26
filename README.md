@@ -93,6 +93,8 @@ Below are the rules and principles every developer should follow.
   * Apply and test your migrations locally before submitting a PR.
 
 * The goal is to maintain a **stable, synchronized migration chain** across all environments.
+  
+---
 
 ### 🔁 General Project Rules
 - Follow the **DRY (Don’t Repeat Yourself)** principle — avoid code repetition everywhere.
