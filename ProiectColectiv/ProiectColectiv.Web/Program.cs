@@ -32,6 +32,8 @@ builder.Services.AddCors(options =>
                       });
 });
 
+// caca maca
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ProiectColectivDbContext>((sp, options) =>
