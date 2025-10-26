@@ -56,6 +56,7 @@ Below are the rules and principles every developer should follow.
 - Method ordering:
   - **Public methods first**, then **private methods**
 - Method names start with a **capital letter**
+- Always use var, no need to specify the type. If you are not sure about the type, hover over the variable, and you'll see it.
 - Always use `{}` after `if`, `for`, `while`, even for single-line statements
 - Bracket style:
   ```csharp
