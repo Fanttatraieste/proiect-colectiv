@@ -1,0 +1,117 @@
+# ============================
+# Build and VS generated files
+# ============================
+
+# Build results
+bin/
+obj/
+out/
+Debug/
+Release/
+[Bb]uild/
+[Ll]og/
+
+# VS-specific files
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.csproj.user
+
+# JetBrains Rider / ReSharper
+.idea/
+*.DotSettings.user
+
+# ============================
+# Dependency caches
+# ============================
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ============================
+# System / temporary files
+# ============================
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+*.tlog
+*.obj
+*.pdb
+*.dbmdl
+*.cache
+*.vspscc
+*.vssscc
+*.orig
+*.scc
+
+# ============================
+# User-specific / local configs
+# ============================
+
+# Visual Studio
+*.user
+*.rsuser
+*.psess
+*.vsp
+*.vsmdi
+TestResult.xml
+TestResults/
+
+# Dotnet environment
+*.env
+.env
+
+# ============================
+# Tooling
+# ============================
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# ============================
+# Other optional ignores
+# ============================
+
+# Logs and coverage
+*.coverage
+*.coveragexml
+*.opencover.xml
+*.trx
+
+# Publish folders
+publish/
+AppPackages/
+BundleArtifacts/
+
+# Backup files
+*.bak
+*.old
+*.swp
+*.swo
+*.tmp
+
+# ============================
+# Entity Framework / Migrations
+# ============================
+
+# (optional) ignore generated migration binaries but keep .cs files
+**/Migrations/*.Designer.cs
+**/Migrations/*ModelSnapshot.cs
