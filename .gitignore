@@ -107,11 +107,3 @@ BundleArtifacts/
 *.swp
 *.swo
 *.tmp
-
-# ============================
-# Entity Framework / Migrations
-# ============================
-
-# (optional) ignore generated migration binaries but keep .cs files
-**/Migrations/*.Designer.cs
-**/Migrations/*ModelSnapshot.cs
