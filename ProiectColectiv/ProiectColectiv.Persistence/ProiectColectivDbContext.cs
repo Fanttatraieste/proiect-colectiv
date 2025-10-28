@@ -11,6 +11,8 @@ namespace ProiectColectiv.Persistence
         }
 
         public DbSet<Example> Examples { get; set; }
+        public DbSet<SocialMediaPost> SocialMediaPosts { get; set; }
+        public DbSet<SocialMediaComment> SocialMediaComments { get; set; }
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Course> Courses { get; set; }
         //public DbSet<Enrollment> Enrollments { get; set; }
@@ -29,6 +31,11 @@ namespace ProiectColectiv.Persistence
             //    .HasOne(e => e.Course)
             //    .WithMany(c => c.Enrollments)
             //    .HasForeignKey(e => e.CourseId);
+            modelBuilder.Entity<SocialMediaPost>()
+                .HasMany(s => s.Comments)
+                .WithOne(c => c.SocialMediaPost)
+                .HasForeignKey(c => c.SocialMediaPostId)
+                .OnDelete(DeleteBehavior.Cascade);  
         }
     }
 }

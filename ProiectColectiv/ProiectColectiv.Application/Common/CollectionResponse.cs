@@ -1,6 +1,6 @@
 ﻿namespace ProiectColectiv.Application.Common
 {
-    public class CollectionResponse<T>
+    public class CollectionResponse<T> : BaseResponse
     {
         public CollectionResponse(IList<T> records, int totalNumberOfRecords)
         {
