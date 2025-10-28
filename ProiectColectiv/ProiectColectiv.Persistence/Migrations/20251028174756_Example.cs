@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProiectColectiv.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Examples : Migration
+    public partial class Example : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
