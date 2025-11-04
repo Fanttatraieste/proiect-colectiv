@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProiectColectiv.Application.Models;
 using ProiectColectiv.Domain.Entities;
 
 namespace ProiectColectiv.Persistence
@@ -16,6 +17,8 @@ namespace ProiectColectiv.Persistence
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Course> Courses { get; set; }
         //public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Specialization> Specializations { get; set; }
+        public DbSet<Subject> Subjects { get; set; }    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +38,41 @@ namespace ProiectColectiv.Persistence
                 .HasMany(s => s.Comments)
                 .WithOne(c => c.SocialMediaPost)
                 .HasForeignKey(c => c.SocialMediaPostId)
-                .OnDelete(DeleteBehavior.Cascade);  
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Specialization>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.NoOfYears)
+                    .IsRequired();
+
+                entity.Property(e => e.Major)
+                    .HasConversion<string>();
+            });
+
+            modelBuilder.Entity<Subject>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Credits)
+                    .IsRequired();
+
+                entity.Property(e => e.Major)
+                    .HasConversion<string>();
+
+                entity.Property(e => e.SubjectType)
+                    .HasConversion<string>();
+            });
+
+            // many-to-many relationship
+            modelBuilder.Entity<Subject>()
+                .HasMany(s => s.Specializations)
+                .WithMany(sp => sp.Subjects);
         }
     }
 }
