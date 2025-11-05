@@ -7,8 +7,7 @@ namespace ProiectColectiv.Domain.Entities
 {
     public class ClassSchedule : Entity
     {
-        [JsonIgnore]
-        public Subject Subject { get; set; }
+        public virtual Subject Subject { get; set; }
         [ForeignKey("Subject")]
         public Guid SubjectId { get; set; }
         public string Location { get; set; }

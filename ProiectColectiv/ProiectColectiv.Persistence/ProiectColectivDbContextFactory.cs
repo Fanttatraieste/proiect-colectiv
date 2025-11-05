@@ -9,7 +9,7 @@ namespace ProiectColectiv.Persistence
         {
             var optionsBuilder = new DbContextOptionsBuilder<ProiectColectivDbContext>();
 
-            var connectionString = $"Server=DESKTOP-JTS2C9N\\SQLEXPRESS;Database=ProiectColectiv;User Id=sa;Password='NE4sC5,)KA9;Ij9!!314';TrustServerCertificate=true;";
+            var connectionString = $"Server=192.168.0.111,1433;Database=ProiectColectiv;User Id=sa;Password=8SSESmkxpHLofk7kL8CZ;TrustServerCertificate=true;";
 
             optionsBuilder.UseSqlServer(connectionString);
 
