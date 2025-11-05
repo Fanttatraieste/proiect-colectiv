@@ -9,5 +9,6 @@ namespace ProiectColectiv.Domain.Entities
         public MajorEnum Major { get; set; }
         public SubjectTypeEnum SubjectType { get; set; }
         public ICollection<Specialization> Specializations { get; set; }
+        public ICollection<ClassSchedule> ClassSchedules { get; set; }
     }
 }

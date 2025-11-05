@@ -10,16 +10,12 @@ namespace ProiectColectiv.Persistence
             : base(options)
         {
         }
-
         public DbSet<Example> Examples { get; set; }
         public DbSet<SocialMediaPost> SocialMediaPosts { get; set; }
         public DbSet<SocialMediaComment> SocialMediaComments { get; set; }
-        //public DbSet<Student> Students { get; set; }
-        //public DbSet<Course> Courses { get; set; }
-        //public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<Subject> Subjects { get; set; }    
-
+        public DbSet<ClassSchedule> ClassSchedules { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -73,6 +69,36 @@ namespace ProiectColectiv.Persistence
             modelBuilder.Entity<Subject>()
                 .HasMany(s => s.Specializations)
                 .WithMany(sp => sp.Subjects);
+
+            modelBuilder.Entity<ClassSchedule>(entity =>
+            {
+                entity.Property(e => e.Location)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.ClassType)
+                    .HasConversion<string>()
+                    .IsRequired();
+
+                entity.Property(e => e.Duration)
+                    .IsRequired();
+
+                entity.Property(e => e.StartingHour)
+                    .IsRequired();
+
+                entity.Property(e => e.DaytOfTheWeek)
+                    .HasConversion<string>()
+                    .IsRequired();
+
+                entity.Property(e => e.Frequency)
+                    .HasConversion<string>()
+                    .IsRequired();
+
+                entity.HasOne(cs => cs.Subject)
+                    .WithMany(s => s.ClassSchedules)
+                    .HasForeignKey(cs => cs.SubjectId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
         }
     }
 }
