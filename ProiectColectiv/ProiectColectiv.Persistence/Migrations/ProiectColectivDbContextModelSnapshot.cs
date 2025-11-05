@@ -22,6 +22,45 @@ namespace ProiectColectiv.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ProiectColectiv.Domain.Entities.ClassSchedule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ClassType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DaytOfTheWeek")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Frequency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<TimeSpan>("StartingHour")
+                        .HasColumnType("time");
+
+                    b.Property<Guid>("SubjectID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectID");
+
+                    b.ToTable("ClassSchedules");
+                });
+
             modelBuilder.Entity("ProiectColectiv.Domain.Entities.Example", b =>
                 {
                     b.Property<Guid>("Id")
@@ -156,6 +195,17 @@ namespace ProiectColectiv.Persistence.Migrations
                     b.ToTable("SpecializationSubject");
                 });
 
+            modelBuilder.Entity("ProiectColectiv.Domain.Entities.ClassSchedule", b =>
+                {
+                    b.HasOne("ProiectColectiv.Domain.Entities.Subject", "Subject")
+                        .WithMany("ClassSchedules")
+                        .HasForeignKey("SubjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("ProiectColectiv.Domain.Entities.SocialMediaComment", b =>
                 {
                     b.HasOne("ProiectColectiv.Domain.Entities.SocialMediaPost", "SocialMediaPost")
@@ -185,6 +235,11 @@ namespace ProiectColectiv.Persistence.Migrations
             modelBuilder.Entity("ProiectColectiv.Domain.Entities.SocialMediaPost", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("ProiectColectiv.Domain.Entities.Subject", b =>
+                {
+                    b.Navigation("ClassSchedules");
                 });
 #pragma warning restore 612, 618
         }

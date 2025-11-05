@@ -8,18 +8,17 @@ namespace ProiectColectiv.Domain.Entities
 {
     public class ClassSchedule : Entity
     {
-        //[JsonIgnore]
-        //public Subject Subject { get; set; } //class Subject is not created yet
-        [ForeignKey("Subject")]
-        public Guid SubjectID { get; set; }
-        [Required]
+        [JsonIgnore]
+        public Subject Subject { get; set; }
+         
+        public Guid SubjectID { get; set; } // it is specified as Foreign Key in the DbContext
         public string Location { get; set; }
         public ClassTypeEnum  ClassType { get; set; }
         public int Duration { get; set; }
-        public FrequencyEnum Frequency { get; set; }
+        public TimeSpan StartingHour { get; set; } // TimeSpan for more flexibility in the future
         public DayOfTheWeekEnum DaytOfTheWeek { get; set; }
-
-        public TimeSpan StartingHour { get; set; } // more flexible for future changes instead of int
-
+        public FrequencyEnum Frequency { get; set; }
+        
+        //public virtual ICollection<Group> Groupes { get; set; }
     }
 }
