@@ -16,7 +16,6 @@ namespace ProiectColectiv.Domain.Entities
         public TimeSpan StartingHour { get; set; }
         public DayOfTheWeekEnum DaytOfTheWeek { get; set; }
         public FrequencyEnum Frequency { get; set; }
-
-        //public virtual ICollection<Group> Groupes { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
     }
 }

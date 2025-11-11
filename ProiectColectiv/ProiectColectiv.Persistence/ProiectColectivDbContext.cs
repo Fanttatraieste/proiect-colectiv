@@ -16,6 +16,7 @@ namespace ProiectColectiv.Persistence
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<Subject> Subjects { get; set; }    
         public DbSet<ClassSchedule> ClassSchedules { get; set; }
+        public DbSet<Group> Groups { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -99,6 +100,17 @@ namespace ProiectColectiv.Persistence
                     .HasForeignKey(cs => cs.SubjectId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
+
+            modelBuilder.Entity<Group>(entity =>
+            {
+                entity.Property(e => e.Number)
+                    .IsRequired();
+            });
+
+            //many-to-many relationship (Group <-> ClassShedule)
+            modelBuilder.Entity<Group>()
+                .HasMany(s => s.ClassSchedules)
+                .WithMany(sp => sp.Groups);
         }
     }
 }
