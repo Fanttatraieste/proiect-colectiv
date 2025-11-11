@@ -17,6 +17,7 @@ namespace ProiectColectiv.Persistence
         public DbSet<Subject> Subjects { get; set; }    
         public DbSet<ClassSchedule> ClassSchedules { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -107,10 +108,22 @@ namespace ProiectColectiv.Persistence
                     .IsRequired();
             });
 
-
             modelBuilder.Entity<Group>()
                 .HasMany(s => s.ClassSchedules)
                 .WithMany(sp => sp.Groups);
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(100);
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(100);
+                entity.Property(e => e.UserType)
+                    .HasConversion<string>()
+                    .IsRequired();
+            });
         }
     }
 }
