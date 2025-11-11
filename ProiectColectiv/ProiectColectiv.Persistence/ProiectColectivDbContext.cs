@@ -107,7 +107,7 @@ namespace ProiectColectiv.Persistence
                     .IsRequired();
             });
 
-            //many-to-many relationship (Group <-> ClassShedule)
+
             modelBuilder.Entity<Group>()
                 .HasMany(s => s.ClassSchedules)
                 .WithMany(sp => sp.Groups);
