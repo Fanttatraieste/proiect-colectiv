@@ -15,6 +15,10 @@ using ProiectColectiv.Persistence.Bootstrap;
 using ProiectColectiv.Web.Bootstrap;
 using ProiectColectiv.Web.Filters;
 using System.Text;
+using ProiectColectiv.Application.Commands.SpecializationCommands;
+using ProiectColectiv.Application.Queries.SpecializationQueries;
+using ProiectColectiv.Domain.Repositories;
+using ProiectColectiv.Persistence.Repositories.Base;
 
 string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -127,6 +131,20 @@ builder.Services
     });
 
 builder.Services.AddControllers(options => options.Filters.Add<CustomExceptionFilterAttribute>());
+
+// Register your handlers as scoped or transient services
+builder.Services.AddScoped<CreateSpecializationCommandHandler>();
+builder.Services.AddScoped<UpdateSpecializationCommandHandler>();
+builder.Services.AddScoped<DeleteSpecializationCommandHandler>();
+builder.Services.AddScoped<GetSpecializationByIdQueryHandler>();
+builder.Services.AddScoped<GetAllSpecializationsQueryHandler>();
+
+// Also register repositories if they are used in handlers
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
