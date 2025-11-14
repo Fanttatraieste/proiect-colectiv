@@ -8,8 +8,7 @@ namespace ProiectColectiv.Persistence
         public ProiectColectivDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ProiectColectivDbContext>();
-            var connectionString = $"Server=172.20.10.9;Database=ProiectColectiv;User Id=sa;Password=VeryStr0ngP@ssw0rd;TrustServerCertificate=true;";
-            //$"Server=192.168.0.111,1433;Database=ProiectColectiv;User Id=sa;Password=8SSESmkxpHLofk7kL8CZ;TrustServerCertificate=true;";
+            var connectionString = $"Server=localhost;Database=ProiectColectiv;Trusted_Connection=True;TrustServerCertificate=True;";
 
             optionsBuilder.UseSqlServer(connectionString);
 
