@@ -7,12 +7,13 @@ using ProiectColectiv.Domain.Repositories;
 
 namespace ProiectColectiv.Application.Commands.SpecializationCommands
 {
-    public class CreateSpecializationCommandHandler
-        : IRequestHandler<CreateSpecializationCommand, CommandResponse<SpecializationModel>>
+    public class SpecializationCommandHandler
+        : IRequestHandler<CreateSpecializationCommand, CommandResponse<SpecializationModel>>, IRequestHandler<UpdateSpecializationCommand, CommandResponse<SpecializationListModel>>,
+            IRequestHandler<DeleteSpecializationCommand, CommandResponse<string>>
     {
         private readonly IRepository<Specialization> _specialisationRepo;
 
-        public CreateSpecializationCommandHandler(IRepository<Specialization> repo)
+        public SpecializationCommandHandler(IRepository<Specialization> repo)
         {
             _specialisationRepo = repo;
         }
@@ -42,7 +43,6 @@ namespace ProiectColectiv.Application.Commands.SpecializationCommands
             {
                 return CommandResponse<string>.Failed("Specialization not found");
             }
-                
 
             _specialisationRepo.Remove(entity);
             await _specialisationRepo.SaveChangesAsync();
@@ -55,12 +55,10 @@ namespace ProiectColectiv.Application.Commands.SpecializationCommands
             var entity = await _specialisationRepo.Query()
                 .FirstOrDefaultAsync(x => x.Id == request.specialization.Id, cancellationToken);
 
-
             if (entity == null)
             {
                 return CommandResponse<SpecializationListModel>.Failed("Specialization not found");
             }
-                
 
             entity.Name = request.specialization.Name;
             entity.NoOfYears = request.specialization.NoOfYears;

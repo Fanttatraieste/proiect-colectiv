@@ -37,6 +37,7 @@ namespace ProiectColectiv.Application.Queries.SpecializationQueries
         {
             
             var entity = await _specialisationRepo.Query()
+                .AsNoTracking()
                 .Include(x => x.Subjects) 
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 

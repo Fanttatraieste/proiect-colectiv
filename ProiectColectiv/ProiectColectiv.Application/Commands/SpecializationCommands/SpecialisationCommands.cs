@@ -1,6 +1,5 @@
 ﻿using ProiectColectiv.Application.Common;
-using ProiectColectiv.Application.Models.Specializations;
-using ProiectColectiv.Domain.Enums;
+using ProiectColectiv.Application.Models.Specializations;   
 
 namespace ProiectColectiv.Application.Commands.SpecializationCommands
 {
@@ -16,9 +15,8 @@ namespace ProiectColectiv.Application.Commands.SpecializationCommands
         public Guid Id { get; set; }
     }
     
-    
     public class UpdateSpecializationCommand 
-        : BaseRequest<CommandResponse<SpecializationModel>>
+        : BaseRequest<CommandResponse<SpecializationListModel>>
     {
         public SpecializationListModel specialization { get; set; }
     }

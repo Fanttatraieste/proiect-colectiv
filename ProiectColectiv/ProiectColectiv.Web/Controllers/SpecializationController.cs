@@ -9,11 +9,11 @@ namespace ProiectColectiv.Web.Controllers
     public class SpecializationController : ControllerBase
     {
         private readonly SpecialisationsQueryHandler _queryHandler;
-        private readonly CreateSpecializationCommandHandler _commandHandler;
+        private readonly SpecializationCommandHandler _commandHandler;
 
         public SpecializationController(
             SpecialisationsQueryHandler queryHandler,
-            CreateSpecializationCommandHandler commandHandler)
+            SpecializationCommandHandler commandHandler)
         {
             _queryHandler = queryHandler;
             _commandHandler = commandHandler;

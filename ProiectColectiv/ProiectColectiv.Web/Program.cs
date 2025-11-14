@@ -133,7 +133,7 @@ builder.Services
 builder.Services.AddControllers(options => options.Filters.Add<CustomExceptionFilterAttribute>());
 
 // Register your handlers as scoped or transient services
-builder.Services.AddScoped<CreateSpecializationCommandHandler>();
+builder.Services.AddScoped<SpecializationCommandHandler>();
 
 builder.Services.AddScoped<SpecialisationsQueryHandler>();
 
