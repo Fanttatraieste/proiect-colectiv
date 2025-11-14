@@ -134,10 +134,8 @@ builder.Services.AddControllers(options => options.Filters.Add<CustomExceptionFi
 
 // Register your handlers as scoped or transient services
 builder.Services.AddScoped<CreateSpecializationCommandHandler>();
-builder.Services.AddScoped<UpdateSpecializationCommandHandler>();
-builder.Services.AddScoped<DeleteSpecializationCommandHandler>();
-builder.Services.AddScoped<GetSpecializationByIdQueryHandler>();
-builder.Services.AddScoped<GetAllSpecializationsQueryHandler>();
+
+builder.Services.AddScoped<SpecialisationsQueryHandler>();
 
 // Also register repositories if they are used in handlers
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

@@ -2,8 +2,9 @@
 
 namespace ProiectColectiv.Application.Models.Specializations
 {
-    public class SpecializationModel
+    public class SpecializationListModel
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public int NoOfYears { get; set; }
         public MajorEnum Major { get; set; }

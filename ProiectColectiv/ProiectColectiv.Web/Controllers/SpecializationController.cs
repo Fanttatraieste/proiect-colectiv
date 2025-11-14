@@ -8,59 +8,77 @@ namespace ProiectColectiv.Web.Controllers
     [Route("api/[controller]")]
     public class SpecializationController : ControllerBase
     {
-        private readonly CreateSpecializationCommandHandler _createHandler;
-        private readonly UpdateSpecializationCommandHandler _updateHandler;
-        private readonly DeleteSpecializationCommandHandler _deleteHandler;
-        private readonly GetSpecializationByIdQueryHandler _getByIdHandler;
-        private readonly GetAllSpecializationsQueryHandler _getAllHandler;
+        private readonly SpecialisationsQueryHandler _queryHandler;
+        private readonly CreateSpecializationCommandHandler _commandHandler;
 
         public SpecializationController(
-            CreateSpecializationCommandHandler createHandler,
-            UpdateSpecializationCommandHandler updateHandler,
-            DeleteSpecializationCommandHandler deleteHandler,
-            GetSpecializationByIdQueryHandler getByIdHandler,
-            GetAllSpecializationsQueryHandler getAllHandler)
+            SpecialisationsQueryHandler queryHandler,
+            CreateSpecializationCommandHandler commandHandler)
         {
-            _createHandler = createHandler;
-            _updateHandler = updateHandler;
-            _deleteHandler = deleteHandler;
-            _getByIdHandler = getByIdHandler;
-            _getAllHandler = getAllHandler;
+            _queryHandler = queryHandler;
+            _commandHandler = commandHandler;
         }
-
+        
         [HttpPost]
-        public async Task<IActionResult> Create(CreateSpecializationCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(
+            CreateSpecializationCommand command,
+            CancellationToken cancellationToken)
         {
-            var result = await _createHandler.Handle(command, cancellationToken);
+            var result = await _commandHandler.Handle(command, cancellationToken);
             return Ok(result);
         }
-
+        
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, UpdateSpecializationCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(
+            Guid id,
+            UpdateSpecializationCommand command,
+            CancellationToken cancellationToken)
         {
-            command.Id = id;
-            var result = await _updateHandler.Handle(command, cancellationToken);
+            command.specialization.Id = id;
+            var result = await _commandHandler.Handle(command, cancellationToken);
             return Ok(result);
         }
-
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _deleteHandler.Handle(new DeleteSpecializationCommand { Id = id }, cancellationToken);
+            var result = await _commandHandler.Handle(
+                new DeleteSpecializationCommand { Id = id }, 
+                cancellationToken
+            );
+
             return Ok(result);
         }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _getByIdHandler.Handle(new GetSpecializationByIdQuery { Id = id }, cancellationToken);
+            var result = await _queryHandler.Handle(
+                new GetSpecializationByIdQuery { Id = id },
+                cancellationToken
+            );
+
+            if (!result.IsValid)
+            {
+                bool notFound = result.Errors
+                    .SelectMany(e => e.Value)
+                    .Any(msg => msg.Contains("not", StringComparison.OrdinalIgnoreCase) &&
+                                msg.Contains("found", StringComparison.OrdinalIgnoreCase));
+
+                if (notFound)
+                    return NotFound(result);
+
+                return BadRequest(result);
+            }
+
             return Ok(result);
         }
 
+        
         [HttpGet]
-        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll()
         {
-            var result = await _getAllHandler.Handle();
+            var result = await _queryHandler.HandleGetAll();
             return Ok(result);
         }
     }
