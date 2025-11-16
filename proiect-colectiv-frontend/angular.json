@@ -53,10 +53,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "proiect-colectiv-frontend:build:production"
+              "buildTarget": "proiect-colectiv-frontend:build:production"
             },
             "development": {
-              "browserTarget": "proiect-colectiv-frontend:build:development"
+              "buildTarget": "proiect-colectiv-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -64,7 +64,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "proiect-colectiv-frontend:build"
+            "buildTarget": "proiect-colectiv-frontend:build"
           }
         },
         "test": {
