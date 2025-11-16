@@ -4,9 +4,10 @@ import { BaseModel } from 'src/app/models/base/BaseModel';
 import { IService } from 'src/app/services/interfaces/IService';
 
 @Component({
-  selector: 'app-shared-table',
-  templateUrl: './shared-table.component.html',
-  styleUrls: ['./shared-table.component.css'],
+    selector: 'app-shared-table',
+    templateUrl: './shared-table.component.html',
+    styleUrls: ['./shared-table.component.css'],
+    standalone: false
 })
 export class SharedTableComponent<T = BaseModel> implements OnInit {
   @Input() service!: IService<T, T>;
