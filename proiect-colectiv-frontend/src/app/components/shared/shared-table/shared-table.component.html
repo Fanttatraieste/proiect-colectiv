@@ -1,0 +1,41 @@
+<div class="shared-table">
+  <h3>{{ tableTitle }}</h3>
+
+  <table>
+    <thead>
+      <tr>
+        @for (header of tableHeaders; track header) {
+          <th>{{ header }}</th>
+        }
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of entities; track item.id) {
+        <tr (click)="read(item.id)" style="cursor: pointer">
+          @for (header of tableHeaders; track header) {
+            <td>
+              {{ item[header] }}
+            </td>
+          }
+          <td>
+            <button
+              type="button"
+              (click)="$event.stopPropagation(); update(item.id)">
+              Update
+            </button>
+            <button
+              type="button"
+              (click)="$event.stopPropagation(); delete(item.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div style="margin-top: 8px">
+    <button type="button" (click)="create()">Create</button>
+  </div>
+</div>

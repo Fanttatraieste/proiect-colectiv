@@ -107,3 +107,50 @@ BundleArtifacts/
 *.swp
 *.swo
 *.tmp
+
+
+
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/proiect-colectiv-frontend/dist
+/proiect-colectiv-frontend/tmp
+/proiect-colectiv-frontend/out-tsc
+/proiect-colectiv-frontend/bazel-out
+
+# Node
+/proiect-colectiv-frontend/node_modules
+/proiect-colectiv-frontend/npm-debug.log
+/proiect-colectiv-frontend/yarn-error.log
+
+# IDEs and editors
+/proiect-colectiv-frontend/.idea/
+/proiect-colectiv-frontend/.project
+/proiect-colectiv-frontend/.classpath
+/proiect-colectiv-frontend/.c9/
+/proiect-colectiv-frontend/*.launch
+/proiect-colectiv-frontend/.settings/
+/proiect-colectiv-frontend/*.sublime-workspace
+
+# Visual Studio Code
+/proiect-colectiv-frontend/.vscode/*
+/proiect-colectiv-frontend/.vscode/settings.json
+/proiect-colectiv-frontend/.vscode/tasks.json
+/proiect-colectiv-frontend/.vscode/launch.json
+/proiect-colectiv-frontend/.vscode/extensions.json
+/proiect-colectiv-frontend/.history/*
+
+# Miscellaneous
+/proiect-colectiv-frontend/.angular/cache
+/proiect-colectiv-frontend/.sass-cache/
+/proiect-colectiv-frontend/connect.lock
+/proiect-colectiv-frontend/coverage
+/proiect-colectiv-frontend/libpeerconnection.log
+/proiect-colectiv-frontend/testem.log
+/proiect-colectiv-frontend/typings
+
+# System files
+/proiect-colectiv-frontend/.DS_Store
+/proiect-colectiv-frontend/Thumbs.db
