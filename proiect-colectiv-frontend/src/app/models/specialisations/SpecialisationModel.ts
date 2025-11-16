@@ -2,7 +2,7 @@ import { BaseModel } from '../base/BaseModel';
 import { MajorEnum } from '../enums/MajorEnums';
 import { SubjectModel } from '../subjects/SubjectModel';
 
-export class SpecializationModel extends BaseModel {
+export class SpecialisationModel extends BaseModel {
   name: string;
   noOfYears: number;
   major: MajorEnum;

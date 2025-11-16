@@ -1,41 +1,103 @@
-<div class="shared-table">
-  <h3>{{ tableTitle }}</h3>
+@if (loading) {
+  <p>Loading...</p>
+} @else {
+  <div class="shared-table">
+    <h3>{{ tableTitle }}</h3>
 
-  <table>
-    <thead>
-      <tr>
-        @for (header of tableHeaders; track header) {
-          <th>{{ header }}</th>
-        }
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (item of entities; track item.id) {
-        <tr (click)="read(item.id)" style="cursor: pointer">
+    <table>
+      <thead>
+        <tr>
           @for (header of tableHeaders; track header) {
-            <td>
-              {{ item[header] }}
-            </td>
+            <th>{{ header }}</th>
           }
-          <td>
-            <button
-              type="button"
-              (click)="$event.stopPropagation(); update(item.id)">
-              Update
-            </button>
-            <button
-              type="button"
-              (click)="$event.stopPropagation(); delete(item.id)">
-              Delete
-            </button>
-          </td>
+          <th>Actions</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (item of entities; track item.uuid) {
+          <tr (click)="read(item.uuid)" style="cursor: pointer">
+            @for (header of tableHeaders; track header) {
+              <td>
+                {{ getPropertyValue(item, header) }}
+              </td>
+            }
+            <td>
+              <button
+                type="button"
+                (click)="$event.stopPropagation(); update(item.uuid)">
+                Update
+              </button>
+              <button
+                type="button"
+                (click)="$event.stopPropagation(); delete(item.uuid)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
 
-  <div style="margin-top: 8px">
-    <button type="button" (click)="create()">Create</button>
+    <div style="margin-top: 8px">
+      <button type="button" (click)="create()">Create</button>
+    </div>
   </div>
-</div>
+}
+
+@if (modalOpen) {
+  <div
+    class="modal-backdrop"
+    style="
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.4);
+    ">
+    <div
+      class="modal"
+      style="
+        background: white;
+        padding: 16px;
+        border-radius: 4px;
+        min-width: 320px;
+        max-width: 90%;
+      ">
+      <h4>{{ modalMode }}</h4>
+
+      <form (ngSubmit)="saveModal()">
+        @for (header of tableHeaders; track header) {
+          @if (header !== 'uuid') {
+            <div style="margin-bottom: 8px">
+              <label
+                [for]="header + '-input'"
+                style="display: block; font-weight: 600"
+                >{{ header }}</label
+              >
+              <input
+                id="{{ header }}-input"
+                type="text"
+                [formControl]="getFormControl(header)"
+                name="{{ header }}" />
+            </div>
+          }
+        }
+
+        <div
+          style="
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 12px;
+          ">
+          <button type="button" (click)="cancelModal()">Cancel</button>
+          <button type="button" (click)="saveModal()">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

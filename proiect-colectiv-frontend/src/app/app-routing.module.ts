@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SpecializationsComponent } from './components/admin/specializations/specializations.component';
+import { SpecialisationsComponent } from './components/admin/specialisations/specialisations.component';
 import { LoginPageComponent } from './components/login/login-page/login-page.component';
 // import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
-  // { path: '', component: LandingPageComponent },
+  { path: '', component: SpecialisationsComponent },
   { path: 'login', component: LoginPageComponent },
   {
     path: 'admin',
@@ -13,11 +13,11 @@ const routes: Routes = [
     // canActivate: [AdminGuard],
     // canActivateChild: [AdminGuard],
     children: [
-      { path: 'specializations', component: SpecializationsComponent },
+      { path: 'specialisations', component: SpecialisationsComponent },
       // other admin child routes...
     ],
   },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '/admin/specialisations' },
 ];
 
 @NgModule({

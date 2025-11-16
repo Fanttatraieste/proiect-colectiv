@@ -1,7 +1,7 @@
 export class BaseModel {
-  id: string;
+  uuid: string;
 
-  constructor(id: string) {
-    this.id = id;
+  constructor(uuid: string) {
+    this.uuid = uuid;
   }
 }

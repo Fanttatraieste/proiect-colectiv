@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 
 export default abstract class BaseService {
-  protected baseUrl = 'http://localhost:3000/api'; // this will be replaced with environment variables later
+  protected baseUrl = 'http://localhost:8080/api'; // this will be replaced with environment variables later
   protected baseEndpoint: string;
   protected http: HttpClient;
 

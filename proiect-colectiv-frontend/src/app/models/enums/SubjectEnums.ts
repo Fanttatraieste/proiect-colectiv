@@ -1,11 +1,11 @@
 export enum SubjectTypeEnum {
-  Optional = 1,
-  Mandatory = 2,
-  Elective = 3,
+  Optional = 0,
+  Mandatory = 1,
+  Elective = 2,
 }
 
 export enum ClassTypeEnum {
-  Course = 1,
-  Seminar = 2,
-  Laboratory = 3,
+  Course = 0,
+  Seminar = 1,
+  Laboratory = 2,
 }

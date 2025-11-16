@@ -1,4 +1,4 @@
 export enum MajorEnum {
-  Math = 1,
-  ComputerScience = 2,
+  Math = 0,
+  ComputerScience = 1,
 }
