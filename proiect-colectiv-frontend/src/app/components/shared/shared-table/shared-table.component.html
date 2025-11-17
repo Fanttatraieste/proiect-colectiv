@@ -17,7 +17,7 @@
         @for (item of entities; track item.uuid) {
           <tr (click)="read(item.uuid)" style="cursor: pointer">
             @for (header of tableHeaders; track header) {
-              <td>
+              <td class="table-cell">
                 {{ getPropertyValue(item, header) }}
               </td>
             }

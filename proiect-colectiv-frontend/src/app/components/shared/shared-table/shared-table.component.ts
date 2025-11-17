@@ -24,7 +24,6 @@ export class SharedTableComponent<T extends BaseModel> implements OnInit {
   public modalOpen = false;
   public modalMode: 'create' | 'update' | null = null;
   public modalItem: Partial<T> = {};
-  public fieldTypes: Record<string, 'number' | 'string'> = {};
   public formControls: { [key: string]: FormControl } = {};
 
   constructor(private router: Router) {
@@ -45,8 +44,8 @@ export class SharedTableComponent<T extends BaseModel> implements OnInit {
     this.router.navigate([this.route, 'detail', id]);
   }
 
-  public update(id: any): void {
-    const item = this.entities.find(e => (e as any).id === id);
+  public update(uuid: any): void {
+    const item = this.entities.find(e => (e as any).uuid === uuid);
     if (item) {
       this.modalMode = 'update';
       this.modalItem = { ...(item as any) } as Partial<T>;
@@ -81,12 +80,21 @@ export class SharedTableComponent<T extends BaseModel> implements OnInit {
         this.refresh();
         this.cancelModal();
       });
-    } else if (this.modalMode === 'update') {
-      this.service.update(this.modalItem as T).subscribe(res => {
-        this.refresh();
-        this.cancelModal();
-      });
+      return;
     }
+
+    this.service.update(this.modalItem as T).subscribe(res => {
+      this.refresh();
+      this.cancelModal();
+    });
+  }
+
+  public getModalValue(header: string): any {
+    return (this.modalItem as any)[header] || (this.entities[0] as any)[header];
+  }
+
+  public getFormControl(header: string): FormControl {
+    return this.formControls[header];
   }
 
   private refresh(): void {
@@ -95,36 +103,21 @@ export class SharedTableComponent<T extends BaseModel> implements OnInit {
       this.entities = items;
       this.loading = false;
 
-      if (items && items.length > 0) {
-        this.tableHeaders = Object.keys(items[0] as any);
-
-        this.fieldTypes = {};
-        const first = items[0] as any;
-        this.tableHeaders.forEach(h => {
-          const val = first[h];
-          this.fieldTypes[h] = typeof val === 'string' ? 'string' : 'number';
-        });
-
-        this.tableHeaders.forEach(header => {
-          this.formControls[header] = new FormControl(
-            this.getModalValue(header)
-          );
-        });
-      } else {
+      if (!items || items.length === 0) {
         this.tableHeaders = [];
+        return;
       }
+
+      this.tableHeaders = Object.keys(items[0] as any);
+
+      const first = items[0] as any;
+      this.tableHeaders.forEach(h => {
+        const val = first[h];
+      });
+
+      this.tableHeaders.forEach(header => {
+        this.formControls[header] = new FormControl(this.getModalValue(header));
+      });
     });
-  }
-
-  public getModalValue(header: string): any {
-    return (this.modalItem as any)[header] || (this.entities[0] as any)[header];
-  }
-
-  public setModalValue(header: string, value: any): void {
-    (this.modalItem as any)[header] = value;
-  }
-
-  public getFormControl(header: string): FormControl {
-    return this.formControls[header];
   }
 }

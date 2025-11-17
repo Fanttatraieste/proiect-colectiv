@@ -15,9 +15,9 @@ export class SpecialisationService
     super(SPECIALIZATION_ENDPOINT, http);
   }
 
-  public getById(id: string): Observable<SpecialisationModel> {
+  public getById(uuid: string): Observable<SpecialisationModel> {
     return this.http.get<SpecialisationModel>(
-      `${this.baseUrl}/${this.baseEndpoint}/${id}`
+      `${this.baseUrl}/${this.baseEndpoint}/${uuid}`
     );
   }
 
@@ -35,10 +35,15 @@ export class SpecialisationService
   }
 
   public update(data: SpecialisationModel): Observable<SpecialisationModel> {
-    throw new Error('Method not implemented.');
+    return this.http.put<SpecialisationModel>(
+      `${this.baseUrl}/${this.baseEndpoint}/${data.uuid}`,
+      data
+    );
   }
 
-  public delete(id: string): Observable<void> {
-    throw new Error('Method not implemented.');
+  public delete(uuid: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.baseUrl}/${this.baseEndpoint}/${uuid}`
+    );
   }
 }
